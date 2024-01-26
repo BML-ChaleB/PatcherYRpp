@@ -48,4 +48,10 @@ namespace PatcherYRpp
             return ret;
         }
     }
+
+    public static class Import
+    {
+        [DllImport("winmm")] public static extern uint timeGetTime();
+        //[DllImport("YRdll.dll")]public static extern int TimeGetTime();
+    }
 }
