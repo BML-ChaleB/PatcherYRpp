@@ -92,6 +92,7 @@
     <Compile Include="ConvertClass.cs" />
     <Compile Include="Dependencies\DirectDraw.cs" />
     <Compile Include="Drawing.cs" />
+    <Compile Include="EventClass.cs" />
     <Compile Include="FileFormats\SHPStruct.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="FlyLocomotionClass.cs" />
