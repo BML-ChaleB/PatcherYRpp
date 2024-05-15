@@ -21,7 +21,7 @@ namespace PatcherYRpp
         private static IntPtr OutListPoint = new IntPtr(0xA802C8);
         public static ref EventList OutList => ref OutListPoint.Convert<EventList>().Ref;
 
-        public bool AddEvent(ref EventClass Event)
+        public static bool AddEvent(ref EventClass Event)
 
         {
             if (OutList.Count >= 128)
@@ -97,19 +97,19 @@ namespace PatcherYRpp
 
         public unsafe Pointer<EventClass> EventClass_Place(int houseIndex, NetworkEvents eventType, AbstractType rttitype, int heapid, int is_naval, ref CellStruct cell)
         {
-            var func = (delegate* unmanaged[Thiscall]<ref EventClass, int, NetworkEvents, AbstractType, int, int, ref CellStruct, IntPtr>)0x4C6A60;
+            var func = (delegate* unmanaged[Thiscall]<ref EventClass, int, NetworkEvents, AbstractType, int, int, ref CellStruct, IntPtr>)0x4C6AE0;
             return func(ref this, houseIndex, eventType, rttitype, heapid, is_naval, ref cell);
         }
 
         public unsafe Pointer<EventClass> EventClass_SpecialPlace(int houseIndex, NetworkEvents eventType, int id, ref CellStruct cell)
         {
-            var func = (delegate* unmanaged[Thiscall]<ref EventClass, int, NetworkEvents, int, ref CellStruct, IntPtr>)0x4C6A60;
+            var func = (delegate* unmanaged[Thiscall]<ref EventClass, int, NetworkEvents, int, ref CellStruct, IntPtr>)0x4C6B60;
             return func(ref this, houseIndex, eventType, id, ref cell);
         }
 
         public unsafe Pointer<EventClass> EventClass_Specific(int houseIndex, NetworkEvents eventType, AbstractType rttitype, int id)
         {
-            var func = (delegate* unmanaged[Thiscall]<ref EventClass, int, NetworkEvents, AbstractType, int, IntPtr>)0x4C6A60;
+            var func = (delegate* unmanaged[Thiscall]<ref EventClass, int, NetworkEvents, AbstractType, int, IntPtr>)0x4C6BE0;
             return func(ref this, houseIndex, eventType, rttitype, id);
         }
 
