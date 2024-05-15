@@ -25,6 +25,15 @@ namespace PatcherYRpp
             return func(ref this);
         }
 
+        public unsafe CoordStruct GetTargetCoords()
+        {
+            var temp = new CoordStruct(0, 0, 0);
+            ((delegate* unmanaged[Thiscall]<ref BuildingClass, ref CoordStruct, IntPtr>)0x4500A0)(ref this, ref temp);
+
+            return temp;
+        }
+
+
         [FieldOffset(0)] public TechnoClass Base;
         [FieldOffset(0)] public RadioClass BaseRadio;
         [FieldOffset(0)] public MissionClass BaseMission;

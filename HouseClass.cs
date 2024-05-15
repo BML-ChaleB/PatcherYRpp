@@ -196,6 +196,13 @@ namespace PatcherYRpp
             return func(GetThis(),pItem,buildLimitOnly,allowIfInProduction);
         }
 
+        public unsafe bool SetCurrentBuilding(Pointer<BuildingClass> pFactory, Pointer<BuildingClass> pBid)
+        {
+            return ((delegate* unmanaged[Thiscall]<IntPtr, IntPtr, IntPtr, Bool>)0x4FB840)(GetThis(), pFactory, pBid);
+            // func(GetThis(), pFactory, pBid);
+        }
+
+
 
         [FieldOffset(48)] public int ArrayIndex;
 
