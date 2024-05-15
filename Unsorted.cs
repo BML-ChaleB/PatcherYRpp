@@ -48,6 +48,18 @@ namespace PatcherYRpp
             MatrixMultiply(ref ret, mtx, vec);
             return ret;
         }
+
+        public static void DrawRadialIndicator(CoordStruct Coord, ColorStruct color, float lineMultiplier, bool DrawLine = false)
+        {
+            DrawRadialIndicator(DrawLine, true, Coord, color, lineMultiplier, false, true);
+        }
+
+        public static unsafe void DrawRadialIndicator(bool drawLine, bool adjustColor, CoordStruct Coord, ColorStruct color, float lineMultiplier, bool unknown1, bool unknown2)
+        {
+            var func = (delegate* unmanaged[Thiscall]<int, Bool, Bool, CoordStruct, ColorStruct, float, Bool, Bool, void>)ASM.FastCallTransferStation;
+            func(0x456980, drawLine, adjustColor, Coord, color, lineMultiplier, unknown1, unknown2);
+        }
+
     }
 
     public static class Import

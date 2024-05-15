@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using DynamicPatcher;
 using WORD = System.UInt16;
 using DWORD = System.UInt32;
 using LLONG = System.UInt64;
@@ -114,7 +113,7 @@ namespace PatcherYRpp
         }
 
         #endregion
-        
+
 
         [FieldOffset(0)] public EventType Type;
         [FieldOffset(1)] public Bool IsExecuted;
@@ -156,14 +155,14 @@ namespace PatcherYRpp
 
             IntPtr oldPtr = EventClass.OutList.Timings_StartPtr;
 
-            return new((Adress)oldPtr + (EventClass.OutList.Head + Index) * 111);
+            return new((Adress)oldPtr + (EventClass.OutList.Head + Index) * 4);
         }
         public Pointer<int> GetTimings(Opposite_Ends HeadOrTail)
         {
 
             IntPtr oldPtr = EventClass.OutList.Timings_StartPtr;
 
-            return HeadOrTail ? oldPtr : new((Adress)oldPtr + EventClass.OutList.Tail * 111);
+            return HeadOrTail ? oldPtr : new((Adress)oldPtr + EventClass.OutList.Tail * 4);
         }
 
     }
