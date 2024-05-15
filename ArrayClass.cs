@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Align = System.Byte;
 
 namespace PatcherYRpp
 {
@@ -130,5 +131,66 @@ namespace PatcherYRpp
         public Bool IsAllocated;
         public int Count;
         public int CapacityIncrement;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Vector<T> : IEnumerable<T>
+    {
+        class Enumerator : IEnumerator<T>, IEnumerator
+        {
+            internal Enumerator(Pointer<T> Items, int Count)
+            {
+
+                this.items = Items;
+                this.count = Count;
+                Reset();
+            }
+
+            public void Dispose() { }
+
+            public bool MoveNext()
+            {
+                if (index < count)
+                {
+                    current = items[index];
+                    index++;
+                    return true;
+                }
+                return false;
+            }
+
+            public T Current => current;
+
+            object IEnumerator.Current => Current;
+
+            public void Reset()
+            {
+                index = 0;
+                current = default(T);
+            }
+
+            private Pointer<T> items;
+            private int count;
+            private int index;
+            private T current;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new Enumerator(Items, Capacity);
+        }
+        IEnumerator IEnumerable.GetEnumerator() => new Enumerator(Items, Capacity);
+
+        public IntPtr Items;
+        public int Capacity;
+        public Bool IsInitialized;
+        public Bool IsAllocated;
+        public Align align1;
+        public Align align2;
+
+        public ref T this[int index] { get => ref Get(index); }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ref T Get(int index) => ref Helpers.GetUnmanagedRef<T>(Items, index);
+
     }
 }

@@ -32,6 +32,7 @@ namespace PatcherYRpp
         [FieldOffset(0)] public AbstractClass BaseAbstract;
 
         [FieldOffset(1312)] public Pointer<BuildingTypeClass> Type;
+        [FieldOffset(1316)] public Pointer<FactoryClass> Factory;
 
         [FieldOffset(1632)] public Bool HasPower;
         [FieldOffset(1633)] public Bool IsOverpowered;

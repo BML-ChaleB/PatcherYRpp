@@ -252,6 +252,12 @@ namespace PatcherYRpp
         [FieldOffset(508)] public Bool RecheckTechTree;
         [FieldOffset(596)] public DynamicVectorClass<Pointer<SuperClass>> Supers;
 
+        [FieldOffset(780)] public int Balance;
+
+        [FieldOffset(21412)] public int PowerOutput;
+
+        [FieldOffset(21416)] public int PowerDrain;
+
 
         [FieldOffset(21368)] public int NumAirpads;
 
@@ -265,12 +271,42 @@ namespace PatcherYRpp
 
         [FieldOffset(21388)] public int NumOrePurifiers;
 
+        [FieldOffset(21420)] Pointer<FactoryClass> PrimaryForAircraft;
+        [FieldOffset(21424)] Pointer<FactoryClass> PrimaryForInfantry;
+        [FieldOffset(21428)] Pointer<FactoryClass> PrimaryForVehicles;
+        [FieldOffset(21432)] Pointer<FactoryClass> PrimaryForShips;
+        [FieldOffset(21436)] Pointer<FactoryClass> PrimaryForBuildings;
+        [FieldOffset(21440)] Pointer<FactoryClass> PrimaryUnused1;
+        [FieldOffset(21444)] Pointer<FactoryClass> PrimaryUnused2;
+        [FieldOffset(21448)] Pointer<FactoryClass> PrimaryUnused3;
+        [FieldOffset(21452)] Pointer<FactoryClass> PrimaryForDefenses;
+        // *> <*
+        // >=|<
+
+
+
 
         [FieldOffset(21556)]public int TotalKilledUnits;
 
         [FieldOffset(21640)] public int TotalKilledBuildings;
 
         [FieldOffset(21736)] public int SiloMoney;
+
+        [FieldOffset(21760)] public CounterClass OwnedBuildingTypes;
+        [FieldOffset(21780)] public CounterClass OwnedUnitTypes;
+        [FieldOffset(21800)] public CounterClass OwnedInfantryTypes;
+        [FieldOffset(21820)] public CounterClass OwnedAircraftTypes;
+
+        [FieldOffset(21840)] public CounterClass ActiveBuildingTypes;
+        [FieldOffset(21860)] public CounterClass ActiveUnitTypes;
+        [FieldOffset(21880)] public CounterClass ActiveInfantryTypes;
+        [FieldOffset(21900)] public CounterClass ActiveAircraftTypes;
+
+        [FieldOffset(21920)] public CounterClass FactoryProducedBuildingTypes;
+        [FieldOffset(21940)] public CounterClass FactoryProducedUnitTypes;
+        [FieldOffset(21960)] public CounterClass FactoryProducedInfantryTypes;
+        [FieldOffset(21980)] public CounterClass FactoryProducedAircraftTypes;
+
 
         [FieldOffset(22265)] public ColorStruct Color;
 
