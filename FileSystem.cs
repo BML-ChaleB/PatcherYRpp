@@ -81,7 +81,9 @@ namespace PatcherYRpp
         public static unsafe Pointer<T> AllocateFile<T>(string fileName)
         {
             var file = YRMemory.Create<CCFileClass>(fileName);
-            return file.Ref.ReadWholeFile();
+            var ret = file.Ref.ReadWholeFile();
+            YRMemory.Delete(file);
+            return ret;
         }
 
         public static unsafe Pointer<BytePalette> AllocatePalette(string fileName)
@@ -90,7 +92,7 @@ namespace PatcherYRpp
             
             if(pal.IsNull == false)
             {
-                var buffer = pal.Data.Entries;
+                var buffer = pal.Ref.Entries;
                 for (int idx = 0; idx < BytePalette.EntriesCount; idx++)
                 {
                     buffer[idx].R <<= 2;

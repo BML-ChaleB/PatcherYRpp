@@ -13,6 +13,17 @@ namespace PatcherYRpp
         static public readonly IntPtr ArrayPointer = new IntPtr(0x89ECF8);
         static public YRPP.GLOBAL_DVC_ARRAY<ConvertClass> GLOBAL_ARRAY = new YRPP.GLOBAL_DVC_ARRAY<ConvertClass>(ArrayPointer);
 
+        public static void Constructor(Pointer<ConvertClass> pThis, Pointer<BytePalette> palette, Pointer<BytePalette> palette2, Pointer<Surface> pSurface, uint ShadeCount, bool skipBlitters)
+        {
+            _constructor(pThis, palette, palette2, pSurface, ShadeCount, skipBlitters);
+        }
+        public static unsafe void _constructor(Pointer<ConvertClass> pThis, Pointer<BytePalette> palette, Pointer<BytePalette> palette2, Pointer<Surface> pSurface, uint ShadeCount, bool skipBlitters)
+        {
+            var func = (delegate* unmanaged[Thiscall]<IntPtr, IntPtr, IntPtr, IntPtr, uint, Bool, IntPtr>)0x48E740;
+            func(pThis, palette, palette2, pSurface, ShadeCount, skipBlitters);
+        }
+
+
 
         [FieldOffset(0)] public int Vfptr;
 
