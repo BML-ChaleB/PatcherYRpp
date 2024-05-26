@@ -26,7 +26,7 @@ namespace PatcherYRpp
 
         public override string ToString()
         {
-            return $"{R}, {G}, {B}";
+            return $"({R}, {G}, {B})";
         }
 
     }
@@ -188,7 +188,7 @@ namespace PatcherYRpp
 
         public override string ToString()
         {
-            return $"{X} : {Y} : {Z}";
+            return $"({X} : {Y} : {Z})";
         }
 
     }
