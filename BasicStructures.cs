@@ -23,6 +23,12 @@ namespace PatcherYRpp
         public byte R;
         public byte G;
         public byte B;
+
+        public override string ToString()
+        {
+            return $"{R}, {G}, {B}";
+        }
+
     }
 
     [DebuggerDisplay("XYZ={X}, {Y}, {Z}")]
@@ -103,6 +109,7 @@ namespace PatcherYRpp
         public int X;
         public int Y;
         public int Z;
+
     }
 
     [DebuggerDisplay("XYZ={X}, {Y}, {Z}")]
@@ -178,6 +185,12 @@ namespace PatcherYRpp
         public double X;
         public double Y;
         public double Z;
+
+        public override string ToString()
+        {
+            return $"{X} : {Y} : {Z}";
+        }
+
     }
 
     [DebuggerDisplay("XY={X}, {Y}")]
@@ -247,6 +260,12 @@ namespace PatcherYRpp
 
         public short X;
         public short Y;
+
+        public override string ToString()
+        {
+            return $"({X}, {Y})";
+        }
+
     }
 
     //Random number range
@@ -426,6 +445,12 @@ namespace PatcherYRpp
 
         public int X;
         public int Y;
+
+        public override string ToString()
+        {
+            return $"({X}, {Y})";
+        }
+
     }
 
     [DebuggerDisplay("XYZW={X}, {Y}, {Width}, {Height}")]
@@ -498,7 +523,45 @@ namespace PatcherYRpp
         public int Y;
         public int Width;
         public int Height;
+
+        public bool InRect(Point2D locLocation)
+        {
+            return locLocation.X > this.X && locLocation.Y > this.Y && locLocation.X < (this.X + this.Width) && locLocation.Y < (this.Y + this.Height);
+        }
+
+        public override string ToString()
+        {
+            return $"({X}, {Y}, {Width},{Height})";
+        }
+
     }
+
+    [DebuggerDisplay("LTRB={Left}, {Top}, {Right}, {Bottom}")]
+    [StructLayout(LayoutKind.Sequential)]
+    [Serializable]
+    public struct LTRBStruct
+    {
+        public LTRBStruct(int x, int y, int z, int w)
+        {
+            Left = x;
+            Top = y;
+            Right = z;
+            Bottom = w;
+        }
+
+        public override string ToString()
+        {
+            return $"({Left}, {Top}, {Right},{Bottom})";
+        }
+
+        public override int GetHashCode() => base.GetHashCode();
+
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
+    }
+
 
     [StructLayout(LayoutKind.Explicit, Size = 828)]
     public struct BytePalette
@@ -506,6 +569,8 @@ namespace PatcherYRpp
         public const int EntriesCount = 256;
         [FieldOffset(0)] public ColorStruct Entries_first;
         public Pointer<ColorStruct> Entries => Pointer<ColorStruct>.AsPointer(ref Entries_first);
+        public ColorStruct this[int Index] { get => Entries[Index]; set => Entries[Index] = value; }
+
     }
 
 
