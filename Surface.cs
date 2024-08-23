@@ -112,6 +112,12 @@ namespace PatcherYRpp
             var func = (delegate* unmanaged[Thiscall]<ref Surface, int, int, IntPtr>)this.GetVirtualFunctionPointer(23);
             return func(ref this, X, Y);
         }
+        public unsafe IntPtr Lock(Point2D location)
+        {
+            var func = (delegate* unmanaged[Thiscall]<ref Surface, int, int, IntPtr>)this.GetVirtualFunctionPointer(23);
+            return func(ref this, location.X, location.Y);
+        }
+
         public unsafe bool Unlock()
         {
             var func = (delegate* unmanaged[Thiscall]<ref Surface, Bool>)this.GetVirtualFunctionPointer(24);

@@ -4,9 +4,79 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using DynamicPatcher;
 
 namespace PatcherYRpp
 {
+    public struct Drawing
+    {
+
+        private static IntPtr tooltipColor = new IntPtr(0xB0FA1C);
+        public static ref ColorStruct TooltipColor { get => ref tooltipColor.Convert<ColorStruct>().Ref; }
+
+        public static int Color16bit(ColorStruct color)
+        {
+            return (color.B >> 3) | ((color.G >> 2) << 5) | ((color.R >> 3) << 11);
+        }
+
+        public static ColorStruct WordColor(int bits)
+        {
+            ColorStruct color;
+            color.R = (byte)(((bits & 0xF800) >> 11) << 3);
+            color.G = (byte)((byte)((bits & 0x07E0) >> 5) << 2); // msvc stupid warning
+            color.B = (byte)((bits & 0x001F) << 3);
+            return color;
+        }
+
+        //TextBox dimensions for tooltip-style boxes
+        public static unsafe Pointer<RectangleStruct> GetTextDimensions(Pointer<RectangleStruct> pOutBuffer, UniString text, Point2D location, int flags, int marginX = 0, int marginY = 0)
+        {
+            var func = (delegate* unmanaged[Thiscall]<int, IntPtr, IntPtr, Point2D, int, int, int, IntPtr>)ASM.FastCallTransferStation;
+            return func(0x4A59E0, pOutBuffer, text, location, flags, marginX, marginY);
+        }
+
+        public static unsafe RectangleStruct GetTextDimensions(string text, Point2D location, int flags, int marginX = 0, int marginY = 0)
+        {
+            RectangleStruct outBuffer = default;
+            GetTextDimensions(Pointer<RectangleStruct>.AsPointer(ref outBuffer), text, location, flags, marginX, marginY);
+            return outBuffer;
+        }
+
+        public static unsafe int RGB2DWORD(int red, int green, int blue)
+        {
+            var func = (delegate* unmanaged[Thiscall]<int, int, int, int, int>)ASM.FastCallTransferStation;
+            return func(0x4355D0, red, green, blue);
+        }
+
+        public static unsafe int RGB2DWORD(ColorStruct color)
+        {
+            return RGB2DWORD(color.R, color.G, color.B);
+        }
+
+        public static unsafe Pointer<RectangleStruct> Intersect(Pointer<RectangleStruct> pOutBuffer,
+                                                                Pointer<RectangleStruct> rect1,
+                                                                Pointer<RectangleStruct> rect2,
+                                                                Pointer<int> delta_left,
+                                                                Pointer<int> delta_top)
+        {
+            var func = (delegate* unmanaged[Thiscall]<int, IntPtr, IntPtr, IntPtr, IntPtr, IntPtr, IntPtr>)ASM.FastCallTransferStation;
+            return func(0x421B60, pOutBuffer, rect1, rect2, delta_left, delta_top);
+        }
+
+        public static Pointer<RectangleStruct> Intersect(Pointer<RectangleStruct> pOutBuffer,
+                                                            Pointer<RectangleStruct> rect1,
+                                                            Pointer<RectangleStruct> rect2)
+            => Intersect(pOutBuffer, rect1, rect2, IntPtr.Zero, IntPtr.Zero);
+
+        public static RectangleStruct Intersect(RectangleStruct rect1, RectangleStruct rect2)
+        {
+            RectangleStruct pOutBuffer = new RectangleStruct();
+            return Intersect(pOutBuffer.GetThisPointer(), rect1.GetThisPointer(), rect2.GetThisPointer()).Ref;
+        }
+    }
+
+
+
     [StructLayout(LayoutKind.Explicit, Size = 48)]
     public struct ABufferClass
     {

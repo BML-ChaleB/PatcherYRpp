@@ -16,19 +16,22 @@ namespace PatcherYRpp
         public Vector<int> Base;
         public int Total;
 
-        public int GetItemCount(int Index)
+        public unsafe int GetCount(int Index)
         {
-            return Base[Index];
+            var func = (delegate* unmanaged[Thiscall]<ref CounterClass, int, int>)0x49FAE0;// 0x49FA00;
+            return func(ref this, Index);
         }
-        public int Increment(int Index)
+
+        public unsafe int Increment(int Index)
         {
-            ++Total;
-            return ++Base[Index];
+            var func = (delegate* unmanaged[Thiscall]<ref CounterClass, int, int>)0x49FA00;// 0x49FA00;
+            return func(ref this, Index);
         }
-        public int Decrement(int Index)
+
+        public unsafe int Decrement(int Index)
         {
-            --Total;
-            return --Base[Index];
+            var func = (delegate* unmanaged[Thiscall]<ref CounterClass, int, int>)0x49FA70;// 0x49FA00;
+            return func(ref this, Index);
         }
     }
 }
