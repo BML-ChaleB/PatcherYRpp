@@ -230,7 +230,7 @@ namespace PatcherYRpp
 
         public override string ToString()
         {
-            return $"({X} : {Y} : {Z})";
+            return $"({X}, {Y}, {Z})";
         }
 
         public static implicit operator BulletVelocity((double, double, double) value) => new BulletVelocity(value.Item1, value.Item2, value.Item3);
