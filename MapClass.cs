@@ -124,6 +124,26 @@ namespace PatcherYRpp
 
 
 
+        public unsafe void SetTogglePowerMode(int mode)
+        {
+            var func = (delegate* unmanaged[Thiscall]<ref MapClass, int, void>)0x4AC820;
+            func(ref this, mode);
+        }
+        public unsafe void SetWaypointMode(int mode, bool bUnk = false)
+        {
+            var func = (delegate* unmanaged[Thiscall]<ref MapClass, int, Bool, void>)0x4AC700;
+            func(ref this, mode, bUnk);
+        }
+        public unsafe void SetRepairMode(int mode)
+        {
+            var func = (delegate* unmanaged[Thiscall]<ref MapClass, int, void>)0x4AC8C0;
+            func(ref this, mode);
+        }
+        public unsafe void SetSellMode(int mode)
+        {
+            var func = (delegate* unmanaged[Thiscall]<ref MapClass, int, void>)0x4AC660;
+            func(ref this, mode);
+        }
 
 
         [FieldOffset(312)] public DynamicVectorClass<Pointer<CellClass>> Cells;

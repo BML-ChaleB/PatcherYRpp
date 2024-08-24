@@ -18,6 +18,8 @@ namespace PatcherYRpp
         private static IntPtr ppPOWEROFF_SHP = new IntPtr(0x89DDC4);
         private static IntPtr ppGRFXTXT_SHP = new IntPtr(0xA8F794);
         private static IntPtr ppOREGATH_SHP = new IntPtr(0xB1CF98);
+        private static IntPtr ppDARKEN_SHP = new IntPtr(0xB07BC0);
+        private static IntPtr ppGCLOCK2_SHP = new IntPtr(0xB0B484);
 
         public static ref Pointer<SHPStruct> PIPBRD_SHP => ref ppPIPBRD_SHP.Convert<Pointer<SHPStruct>>().Ref;
         public static ref Pointer<SHPStruct> PIPS_SHP => ref ppPIPS_SHP.Convert<Pointer<SHPStruct>>().Ref;
@@ -27,6 +29,9 @@ namespace PatcherYRpp
         public static ref Pointer<SHPStruct> POWEROFF_SHP => ref ppPOWEROFF_SHP.Convert<Pointer<SHPStruct>>().Ref;
         public static ref Pointer<SHPStruct> GRFXTXT_SHP => ref ppGRFXTXT_SHP.Convert<Pointer<SHPStruct>>().Ref;
         public static ref Pointer<SHPStruct> OREGATH_SHP => ref ppOREGATH_SHP.Convert<Pointer<SHPStruct>>().Ref;
+        public static ref Pointer<SHPStruct> DARKEN_SHP => ref ppDARKEN_SHP.Convert<Pointer<SHPStruct>>().Ref;
+        public static ref Pointer<SHPStruct> GCLOCK2_SHP => ref ppGCLOCK2_SHP.Convert<Pointer<SHPStruct>>().Ref;
+
 
         private static IntPtr pTEMPERAT_PAL = new IntPtr(0x885780);
         private static IntPtr pGRFXTXT_PAL = new IntPtr(0xA8F790);
@@ -36,13 +41,14 @@ namespace PatcherYRpp
 
         private static IntPtr ppCAMEO_PAL = new IntPtr(0x87F6B0);
         private static IntPtr ppUNITx_PAL = new IntPtr(0x87F6B4);
-        private static IntPtr ppPALETTE_PAL = new IntPtr(0x886380);
+        private static IntPtr ppPALETTE_PAL = new IntPtr(0x87F6C4);
         private static IntPtr ppx_PAL = new IntPtr(0x87F6B8);
         private static IntPtr ppGRFTXT_TIBERIUM_PAL = new IntPtr(0x87F6BC);
         private static IntPtr ppANIM_PAL = new IntPtr(0x87F6C0);
         private static IntPtr ppTHEATER_PAL = new IntPtr(0x87F6C4);
         private static IntPtr ppMOUSE_PAL = new IntPtr(0x87F6C8);
         private static IntPtr ppGRFXTXT_Convert = new IntPtr(0xA8F798);
+        private static IntPtr ppSIDEBAR_PAL = new IntPtr(0x87F6CC);
 
         public static ref Pointer<ConvertClass> CAMEO_PAL => ref ppCAMEO_PAL.Convert<Pointer<ConvertClass>>().Ref;
         public static ref Pointer<ConvertClass> UNITx_PAL => ref ppUNITx_PAL.Convert<Pointer<ConvertClass>>().Ref;
@@ -53,6 +59,7 @@ namespace PatcherYRpp
         public static ref Pointer<ConvertClass> THEATER_PAL => ref ppTHEATER_PAL.Convert<Pointer<ConvertClass>>().Ref;
         public static ref Pointer<ConvertClass> MOUSE_PAL => ref ppMOUSE_PAL.Convert<Pointer<ConvertClass>>().Ref;
         public static ref Pointer<ConvertClass> GRFXTXT_Convert => ref ppGRFXTXT_Convert.Convert<Pointer<ConvertClass>>().Ref;
+        public static ref Pointer<ConvertClass> SIDEBAR_PAL => ref ppSIDEBAR_PAL.Convert<Pointer<ConvertClass>>().Ref;
 
 
         public static unsafe IntPtr LoadFile(string fileName, bool bLoadAsSHPReferenc = false)
@@ -81,7 +88,9 @@ namespace PatcherYRpp
         public static unsafe Pointer<T> AllocateFile<T>(string fileName)
         {
             var file = YRMemory.Create<CCFileClass>(fileName);
-            return file.Ref.ReadWholeFile();
+            var ret = file.Ref.ReadWholeFile();
+            YRMemory.Delete(file);
+            return ret;
         }
 
         public static unsafe Pointer<BytePalette> AllocatePalette(string fileName)
@@ -90,7 +99,7 @@ namespace PatcherYRpp
             
             if(pal.IsNull == false)
             {
-                var buffer = pal.Data.Entries;
+                var buffer = pal.Ref.Entries;
                 for (int idx = 0; idx < BytePalette.EntriesCount; idx++)
                 {
                     buffer[idx].R <<= 2;

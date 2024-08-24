@@ -213,4 +213,36 @@ namespace PatcherYRpp
 
         public override string ToString() => this;
     }
+
+    public static class StringTable
+    {
+        public static unsafe string LoadString(string label)
+        {
+            var func = (delegate* unmanaged[Thiscall]<int, AnsiStringPointer, IntPtr, IntPtr, int, UniStringPointer>)ASM.FastCallTransferStation;
+            return func(0x734E60, new AnsiString(label), IntPtr.Zero, new AnsiString(""), 0);
+        }
+
+        public static bool TryLoadString(string label, out string value)
+        {
+            if (string.IsNullOrWhiteSpace(label) && !string.Equals("<none>", label, StringComparison.OrdinalIgnoreCase) && string.Equals("none", label, StringComparison.OrdinalIgnoreCase))
+            {
+                value = LoadString(label);
+                if (value != null && !value.StartsWith("MISSING:"))
+                {
+                    return true;
+                }
+            }
+            value = null;
+            return false;
+        }
+
+        public static string LoadOrThrow(string label)
+        {
+            if (TryLoadString(label, out string value))
+            {
+                return value;
+            }
+            throw new KeyNotFoundException(label);
+        }
+    }
 }
