@@ -162,6 +162,17 @@ namespace PatcherYRpp
             RectangleStruct rect = this.GetRect();
             DrawSHP(pPalette, pSHP, nFrame, point, rect, BlitterFlags.None, 0, 0, 0, 0x3E8, 0, IntPtr.Zero, 0, 0, 0);
         }
+        public unsafe void DrawSHP(Pointer<SHPStruct> pSHP, int nFrame, Pointer<ConvertClass> pPalette, Point2D point, BlitterFlags flags)
+        {
+            RectangleStruct rect = this.GetRect();
+            DrawSHP(pPalette, pSHP, nFrame, point, rect, flags, 0, 0, 0, 0x3E8, 0, IntPtr.Zero, 0, 0, 0);
+        }
+        public unsafe void DrawSHP(Pointer<SHPStruct> pSHP, int nFrame, Pointer<ConvertClass> pPalette, Point2D point, BlitterFlags flags, int zAdjust)
+        {
+            RectangleStruct rect = this.GetRect();
+            DrawSHP(pPalette, pSHP, nFrame, point, rect, flags, 0, zAdjust, 2, 1000, 0, IntPtr.Zero, 0, 0, 0);
+        }
+
         public unsafe void DrawSHP(Pointer<ConvertClass> Palette, Pointer<SHPStruct> SHP, int frameIdx,
             Point2D pos, RectangleStruct boundingRect, BlitterFlags flags, uint arg7,
             int zAdjust, uint arg9, uint bright, int TintColor, Pointer<SHPStruct> BUILDINGZ_SHA, uint argD, int ZS_X, int ZS_Y)

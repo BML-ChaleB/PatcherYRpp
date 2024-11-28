@@ -107,6 +107,15 @@ namespace PatcherYRpp
         SlaveManager = 72,
         DiskLaser = 73
     };
+    public enum BuildCat : uint
+    {
+        DontCare = 0,
+        Tech = 1,
+        Resoure = 2,
+        Power = 3,
+        Infrastructure = 4,
+        Combat = 5
+    }
 
     public enum DamageState
     {

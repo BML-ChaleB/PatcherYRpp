@@ -121,6 +121,7 @@ namespace PatcherYRpp
         [FieldOffset(2704)] public Bool ClearAllWeapons;
         [FieldOffset(2708)] public WeaponStruct EliteWeapon_first;
         public Pointer<WeaponStruct> EliteWeapon => Pointer<WeaponStruct>.AsPointer(ref EliteWeapon_first);
+        [FieldOffset(3278)] public Bool Naval;
 
         [FieldOffset(3434)] public Bool BalloonHover;
         [FieldOffset(3476)] public Bool JumpJet;
