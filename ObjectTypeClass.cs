@@ -10,6 +10,14 @@ namespace PatcherYRpp
     [StructLayout(LayoutKind.Explicit, Size = 660)]
     public struct ObjectTypeClass
     {
+        public unsafe CoordStruct Dimension2()
+        {
+            CoordStruct tmp = default;
+            var func = (delegate* unmanaged[Thiscall]<ref ObjectTypeClass, ref CoordStruct, void>)this.GetVirtualFunctionPointer(31);
+            func(ref this, ref tmp);
+            return tmp;
+        }
+
         public unsafe bool SpawnAtMapCoords(CellStruct mapCoords, Pointer<HouseClass> pOwner)
         {
             var func = (delegate* unmanaged[Thiscall]<ref ObjectTypeClass, ref CellStruct, IntPtr, Bool>)this.GetVirtualFunctionPointer(32);

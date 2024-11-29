@@ -15,6 +15,15 @@ namespace PatcherYRpp
 
         public static Pointer<TacticalClass> Instance { get => ((Pointer<Pointer<TacticalClass>>)ppInstance).Data; set => ((Pointer<Pointer<TacticalClass>>)ppInstance).Ref = value; }
 
+        public static Point2D CoordsToScreen(CoordStruct coord)
+        {
+            return (30 * (coord.X - coord.Y) / 256
+                ,
+                15 * (coord.X + coord.Y) / 256
+                - (int)(coord.Z * new Pointer<double>(0xB0CD48).Ref + (coord.Z >= 728 ? 1.5 : 0.5))
+                );
+        }
+
         public unsafe Point2D CoordsToClient(CoordStruct coords)
         {
             Point2D ret = default;

@@ -19,6 +19,11 @@ namespace PatcherYRpp
 
 
         static public readonly IntPtr ObjectsInLayersPointer = new IntPtr(0x8A0360);
+        public static unsafe Pointer<TechnoTypeClass> GetTechnoType(AbstractType abstractID, int idx)
+        {
+            var func = (delegate* unmanaged[Thiscall]<int, AbstractType, int, IntPtr>)ASM.FastCallTransferStation;
+            return func(0x48DCD0, abstractID, idx);
+        }
 
         public unsafe Pointer<TechnoTypeClass> GetTechnoType()
         {

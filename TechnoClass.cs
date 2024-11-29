@@ -534,6 +534,7 @@ namespace PatcherYRpp
         [FieldOffset(1061)] public Bool IsCrashing;
         [FieldOffset(1062)] public Bool WasCrashingAlready;
         [FieldOffset(1063)] public Bool IsBeingManipulated;
+        [FieldOffset(1073)] public Bool IsMouseHovering;
 
         [FieldOffset(1088)] public DynamicVectorClass<int> CurrentTargetThreatValues;
         [FieldOffset(1112)] public DynamicVectorClass<Pointer<AbstractClass>> CurrentTargets;

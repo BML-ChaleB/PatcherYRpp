@@ -278,15 +278,15 @@ namespace PatcherYRpp
 
         [FieldOffset(21388)] public int NumOrePurifiers;
 
-        [FieldOffset(21420)] Pointer<FactoryClass> PrimaryForAircraft;
-        [FieldOffset(21424)] Pointer<FactoryClass> PrimaryForInfantry;
-        [FieldOffset(21428)] Pointer<FactoryClass> PrimaryForVehicles;
-        [FieldOffset(21432)] Pointer<FactoryClass> PrimaryForShips;
-        [FieldOffset(21436)] Pointer<FactoryClass> PrimaryForBuildings;
-        [FieldOffset(21440)] Pointer<FactoryClass> PrimaryUnused1;
-        [FieldOffset(21444)] Pointer<FactoryClass> PrimaryUnused2;
-        [FieldOffset(21448)] Pointer<FactoryClass> PrimaryUnused3;
-        [FieldOffset(21452)] Pointer<FactoryClass> PrimaryForDefenses;
+        [FieldOffset(21420)] public Pointer<FactoryClass> PrimaryForAircraft;
+        [FieldOffset(21424)] public Pointer<FactoryClass> PrimaryForInfantry;
+        [FieldOffset(21428)] public Pointer<FactoryClass> PrimaryForVehicles;
+        [FieldOffset(21432)] public Pointer<FactoryClass> PrimaryForShips;
+        [FieldOffset(21436)] public Pointer<FactoryClass> PrimaryForBuildings;
+        [FieldOffset(21440)] public Pointer<FactoryClass> PrimaryUnused1;
+        [FieldOffset(21444)] public Pointer<FactoryClass> PrimaryUnused2;
+        [FieldOffset(21448)] public Pointer<FactoryClass> PrimaryUnused3;
+        [FieldOffset(21452)] public Pointer<FactoryClass> PrimaryForDefenses;
         // *> <*
         // >=|<
 
