@@ -26,6 +26,7 @@ namespace PatcherYRpp
         [FieldOffset(0)] public TechnoTypeClass Base;
         [FieldOffset(0)] public ObjectTypeClass BaseObjectType;
         [FieldOffset(0)] public AbstractTypeClass BaseAbstractType;
+        [FieldOffset(3576)] public int ArrayIndex;
         [FieldOffset(3768)] public AbstractType Factory;
 
         [FieldOffset(5891)] public Bool PlaceAnywhere;

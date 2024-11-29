@@ -187,6 +187,20 @@ namespace PatcherYRpp
             func(0x4AED70, ref this, Palette, SHP, frameIdx, pos, boundingRect, flags, arg7, zAdjust, arg9, bright, TintColor, BUILDINGZ_SHA, argD, ZS_X, ZS_Y);
         }
 
+        public static unsafe bool GetTextDimension(string Text, ref int Width, ref int Height, int nMaxWidth)
+        {
+            return ((delegate* unmanaged[Thiscall]<IntPtr, IntPtr, ref int, ref int, int, Bool>)0x433CF0)(((Pointer<IntPtr>)0x89C4D0).Data, new UniString(Text), ref Width, ref Height, nMaxWidth);
+
+        }
+
+        public static int GetTextDimension(string Text, int nMaxWidth)
+        {
+            int buffer1 = 0;
+            int buffer2 = 0;
+            GetTextDimension(Text, ref buffer1, ref buffer2, nMaxWidth);
+            return buffer1;
+        }
+
 
         [FieldOffset(0)] public int Vfptr;
 
