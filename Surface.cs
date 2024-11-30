@@ -201,6 +201,47 @@ namespace PatcherYRpp
             return buffer1;
         }
 
+        public unsafe void DrawText(string text, Pointer<RectangleStruct> pBound, Pointer<Point2D> pLocation, int foreColor, int backColor, TextPrintType flags)
+        {
+            Point2D temp = default;
+            Fancy_Text_Print_Wide(Pointer<Point2D>.AsPointer(ref temp), text, Pointer<Surface>.AsPointer(ref this), pBound, pLocation, foreColor, backColor, flags);
+        }
+
+        public unsafe void DrawText(string text, Pointer<RectangleStruct> pBound, Pointer<Point2D> pLocation, ColorStruct color, TextPrintType flags = TextPrintType.NoShadow)
+        {
+            DrawText(text, pBound, pLocation, Drawing.RGB2DWORD(color), 0, flags);
+        }
+
+        public unsafe void DrawText(string text, Pointer<Point2D> pLocation, ColorStruct color, TextPrintType flags = TextPrintType.NoShadow)
+        {
+            RectangleStruct bound = GetRect();
+            DrawText(text, Pointer<RectangleStruct>.AsPointer(ref bound), pLocation, color, flags);
+        }
+
+        public unsafe void DrawText(string text, Point2D pos, ColorStruct color, TextPrintType flags = TextPrintType.NoShadow)
+        {
+            DrawText(text, Pointer<Point2D>.AsPointer(ref pos), color, flags);
+        }
+
+        public unsafe void DrawText(string text, int x, int y, ColorStruct color, TextPrintType flags = TextPrintType.NoShadow)
+        {
+            Point2D temp = new Point2D(x, y);
+            DrawText(text, Pointer<Point2D>.AsPointer(ref temp), color, flags);
+        }
+
+        public unsafe void DrawText(string text, CoordStruct location, ColorStruct color, TextPrintType flags = TextPrintType.NoShadow)
+        {
+            Point2D pos = TacticalClass.Instance.Ref.CoordsToClient(location);
+            DrawText(text, Pointer<Point2D>.AsPointer(ref pos), color, flags);
+        }
+
+        public static unsafe Pointer<Point2D> Fancy_Text_Print_Wide(Pointer<Point2D> RetVal, UniString pText, Pointer<Surface> pSurface, Pointer<RectangleStruct> pBound,
+                                                                    Pointer<Point2D> pLocation, int foreColor, int backColor, TextPrintType flags)
+        {
+            var func = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, IntPtr, IntPtr, int, int, TextPrintType, int, IntPtr>)0x4A60E0;
+            return func(RetVal, pText, pSurface, pBound, pLocation, foreColor, backColor, flags, 0);
+        }
+
 
         [FieldOffset(0)] public int Vfptr;
 
