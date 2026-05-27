@@ -247,7 +247,7 @@ namespace PatcherYRpp
 
         public unsafe void Stun()
         {
-            var func = (delegate* unmanaged[Thiscall]<ref TechnoClass>)this.GetVirtualFunctionPointer(232);
+            var func = (delegate* unmanaged[Thiscall]<ref TechnoClass,void>)this.GetVirtualFunctionPointer(232);
             func(ref this);
         }
 
